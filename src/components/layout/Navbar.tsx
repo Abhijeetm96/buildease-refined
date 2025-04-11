@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +23,7 @@ const Navbar = () => {
   return (
     <nav 
       className={cn(
-        "fixed w-full z-50 transition-all duration-300 px-6 lg:px-12",
+        "fixed w-full z-50 transition-all duration-300 px-6 lg:px-12 sticky top-0",
         isScrolled ? "bg-buildease-black py-4" : "bg-transparent py-6"
       )}
     >
