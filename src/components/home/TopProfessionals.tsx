@@ -1,8 +1,9 @@
 
-import { Star } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Star, ChevronRight, ChevronLeft, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
+// Extending ProfessionalCardProps to include style
 interface ProfessionalCardProps {
   name: string;
   specialty: string;
@@ -11,42 +12,58 @@ interface ProfessionalCardProps {
   image: string;
   experience: number;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-const ProfessionalCard = ({ name, specialty, rating, reviews, image, experience, className }: ProfessionalCardProps) => {
+const ProfessionalCard = ({ 
+  name, 
+  specialty, 
+  rating, 
+  reviews, 
+  image, 
+  experience,
+  className = "",
+  style
+}: ProfessionalCardProps) => {
   return (
-    <div className={cn("professional-card", className)}>
-      <div className="w-full md:w-1/3 h-64 md:h-auto overflow-hidden group">
+    <div 
+      className={`bg-white rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row ${className}`}
+      style={style}
+    >
+      <div className="md:w-1/3 relative h-48 md:h-auto">
         <img 
           src={image} 
           alt={name} 
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
+        <div className="absolute top-3 right-3 bg-buildease-yellow text-buildease-black text-xs font-semibold px-2 py-1 rounded-full">
+          {experience}+ Years
+        </div>
       </div>
-      <div className="w-full md:w-2/3 p-6 flex flex-col justify-between">
+      <div className="p-6 md:w-2/3 flex flex-col justify-between">
         <div>
           <div className="flex justify-between items-start mb-2">
-            <h3 className="text-xl font-semibold">{name}</h3>
-            <div className="flex items-center bg-buildease-lightgray px-2 py-1 rounded-full">
-              <Star size={16} className="text-buildease-yellow mr-1" fill="#FFD700" />
-              <span className="font-medium">{rating.toFixed(1)}</span>
-              <span className="text-sm text-gray-500 ml-1">({reviews})</span>
+            <h3 className="text-xl font-semibold text-buildease-black">{name}</h3>
+            <div className="flex items-center">
+              <Star className="text-buildease-yellow fill-buildease-yellow w-4 h-4 mr-1" />
+              <span className="text-sm font-medium">{rating}</span>
+              <span className="text-xs text-gray-500 ml-1">({reviews})</span>
             </div>
           </div>
-          <p className="text-buildease-black font-medium mb-2">{specialty}</p>
-          <p className="text-gray-600 mb-4">{experience} years of experience</p>
+          <p className="text-gray-600 mb-4">{specialty}</p>
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Licensed</span>
-            <span className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Insured</span>
-            <span className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Background Checked</span>
+            <span className="badge">Licensed</span>
+            <span className="badge">Verified</span>
+            <span className="badge">Insured</span>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="outline" className="border-buildease-yellow text-buildease-black hover:bg-buildease-yellow/10">
+        <div className="flex justify-between items-center">
+          <Button variant="outline" size="sm" className="text-buildease-black border-buildease-yellow hover:bg-buildease-yellow/10">
             View Profile
           </Button>
-          <Button className="btn-primary">
-            Book Now
+          <Button variant="ghost" size="sm">
+            <ExternalLink size={16} className="mr-1" />
+            Portfolio
           </Button>
         </div>
       </div>
@@ -55,66 +72,143 @@ const ProfessionalCard = ({ name, specialty, rating, reviews, image, experience,
 };
 
 const TopProfessionals = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const professionals = [
     {
-      name: "Robert Johnson",
-      specialty: "General Contractor",
+      name: "John Carpenter",
+      specialty: "Home Renovation & Construction",
       rating: 4.9,
-      reviews: 187,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&w=400",
+      reviews: 124,
+      image: "https://images.unsplash.com/photo-1584824486509-112e4181ff6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
       experience: 15
     },
     {
-      name: "Sarah Williams",
-      specialty: "Interior Designer",
+      name: "Maria Rodriguez",
+      specialty: "Interior Design & Decoration",
       rating: 4.8,
-      reviews: 132,
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&w=400",
+      reviews: 97,
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+      experience: 12
+    },
+    {
+      name: "David Chen",
+      specialty: "Electrical Engineering & Installation",
+      rating: 5.0,
+      reviews: 88,
+      image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
       experience: 10
     },
     {
-      name: "Michael Chen",
-      specialty: "Electrical Engineer",
-      rating: 4.9,
-      reviews: 156,
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&w=400",
-      experience: 12
-    }
+      name: "Sarah Johnson",
+      specialty: "Landscape Design & Gardening",
+      rating: 4.7,
+      reviews: 76,
+      image: "https://images.unsplash.com/photo-1558222218-b7b54eede3f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+      experience: 8
+    },
+    {
+      name: "Michael Lee",
+      specialty: "Plumbing & Water Systems",
+      rating: 4.6,
+      reviews: 65,
+      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600",
+      experience: 18
+    },
   ];
+  
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkIsMobile();
+    
+    // Add event listener
+    window.addEventListener('resize', checkIsMobile);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
+  
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? professionals.length - (isMobile ? 1 : 2) : prevIndex - 1
+    );
+  };
+  
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex >= professionals.length - (isMobile ? 1 : 2) ? 0 : prevIndex + 1
+    );
+  };
 
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="mb-4">Top-Rated Professionals</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-            These highly-rated professionals have consistently delivered quality work
-            and excellent customer service.
-          </p>
+        <div className="flex justify-between items-center mb-12">
+          <h2 className="text-buildease-black">Top Professionals</h2>
+          <div className="flex items-center space-x-2">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={handlePrev}
+              className="border-buildease-yellow text-buildease-black hover:bg-buildease-yellow/10"
+            >
+              <ChevronLeft size={18} />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={handleNext}
+              className="border-buildease-yellow text-buildease-black hover:bg-buildease-yellow/10"
+            >
+              <ChevronRight size={18} />
+            </Button>
+          </div>
         </div>
         
-        <div className="space-y-8">
-          {professionals.map((professional, index) => (
-            <ProfessionalCard
-              key={index}
-              name={professional.name}
-              specialty={professional.specialty}
-              rating={professional.rating}
-              reviews={professional.reviews}
-              image={professional.image}
-              experience={professional.experience}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            />
-          ))}
+        <div className="overflow-hidden">
+          <div 
+            className="flex transition-transform duration-500 ease-in-out gap-8"
+            style={{ transform: `translateX(-${currentIndex * (100 / (isMobile ? 1 : 2))}%)` }}
+          >
+            {professionals.map((professional, index) => (
+              <ProfessionalCard
+                key={index}
+                name={professional.name}
+                specialty={professional.specialty}
+                rating={professional.rating}
+                reviews={professional.reviews}
+                image={professional.image}
+                experience={professional.experience}
+                className="min-w-[100%] md:min-w-[calc(50%-1rem)]"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              />
+            ))}
+          </div>
         </div>
         
-        <div className="mt-12 text-center">
-          <Button variant="outline" className="border-buildease-yellow text-buildease-black hover:bg-buildease-yellow/10">
+        <div className="text-center mt-8">
+          <Button className="btn-primary">
             View All Professionals
           </Button>
         </div>
       </div>
+      
+      <style jsx>{`
+        .badge {
+          background-color: #f0f0f0;
+          padding: 0.25rem 0.75rem;
+          border-radius: 9999px;
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #333;
+        }
+      `}</style>
     </section>
   );
 };
