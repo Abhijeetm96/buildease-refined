@@ -199,16 +199,19 @@ const TopProfessionals = () => {
         </div>
       </div>
       
-      <style jsx>{`
-        .badge {
-          background-color: #f0f0f0;
-          padding: 0.25rem 0.75rem;
-          border-radius: 9999px;
-          font-size: 0.75rem;
-          font-weight: 500;
-          color: #333;
-        }
-      `}</style>
+      {/* Replace the JSX style tag with CSS classes */}
+      <style>
+        {`
+          .badge {
+            background-color: #f0f0f0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #333;
+          }
+        `}
+      </style>
     </section>
   );
 };
