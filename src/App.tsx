@@ -23,6 +23,12 @@ import Painting from "./pages/services/Painting";
 import Landscaping from "./pages/services/Landscaping";
 import Maintenance from "./pages/services/Maintenance";
 
+// Construction Subcategory Pages
+import ResidentialConstruction from "./pages/services/construction/ResidentialConstruction";
+import CommercialConstruction from "./pages/services/construction/CommercialConstruction";
+import ProjectManagement from "./pages/services/construction/ProjectManagement";
+import SpecialtyConstruction from "./pages/services/construction/SpecialtyConstruction";
+
 // Create a client
 const queryClient = new QueryClient();
 
@@ -50,6 +56,12 @@ const App = () => (
         <Route path="/services/painting" element={<Painting />} />
         <Route path="/services/landscaping" element={<Landscaping />} />
         <Route path="/services/maintenance" element={<Maintenance />} />
+        
+        {/* Construction Subcategory Routes */}
+        <Route path="/services/construction/residential" element={<ResidentialConstruction />} />
+        <Route path="/services/construction/commercial" element={<CommercialConstruction />} />
+        <Route path="/services/construction/project-management" element={<ProjectManagement />} />
+        <Route path="/services/construction/specialty-construction" element={<SpecialtyConstruction />} />
         
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
