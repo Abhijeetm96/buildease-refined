@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <nav 
       className={cn(
-        "fixed w-full z-50 transition-all duration-300 px-6 lg:px-12 sticky top-0",
+        "fixed w-full z-50 transition-all duration-300 px-6 lg:px-12 top-0",
         isScrolled ? "bg-buildease-black py-4" : "bg-transparent py-6"
       )}
     >
@@ -39,32 +39,35 @@ const Navbar = () => {
         
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-8">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/services" className="nav-link">Services</Link>
-          <Link to="/how-it-works" className="nav-link">How It Works</Link>
-          <Link to="/blog" className="nav-link">Blog</Link>
-          <Link to="/contact" className="nav-link">Contact</Link>
+          <Link to="/" className="text-white hover:text-buildease-yellow transition-colors">Home</Link>
+          <Link to="/services" className="text-white hover:text-buildease-yellow transition-colors">Services</Link>
+          <Link to="/how-it-works" className="text-white hover:text-buildease-yellow transition-colors">How It Works</Link>
+          <Link to="/blog" className="text-white hover:text-buildease-yellow transition-colors">Blog</Link>
+          <Link to="/contact" className="text-white hover:text-buildease-yellow transition-colors">Contact</Link>
         </div>
         
         <div className="hidden lg:flex items-center space-x-4">
           <Link to="/login" className="text-white hover:text-buildease-yellow transition-colors">
             Login
           </Link>
-          <Button className="btn-primary">Book Now</Button>
+          <Button asChild className="btn-primary">
+            <Link to="/book-now">Book Now</Link>
+          </Button>
         </div>
         
         {/* Mobile Menu Button */}
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)} 
           className="lg:hidden text-white"
+          aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
       
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Fixed positioning to ensure visibility */}
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-[100%] left-0 right-0 bg-buildease-black border-t border-gray-800 animate-fade-in">
+        <div className="lg:hidden absolute top-[100%] left-0 right-0 bg-buildease-black border-t border-gray-800 animate-fade-in z-50">
           <div className="flex flex-col p-4 space-y-4">
             <Link 
               to="/" 
@@ -110,8 +113,8 @@ const Navbar = () => {
               >
                 Login
               </Link>
-              <Button className="btn-primary w-full" onClick={() => setIsMenuOpen(false)}>
-                Book Now
+              <Button asChild className="btn-primary w-full" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/book-now">Book Now</Link>
               </Button>
             </div>
           </div>
