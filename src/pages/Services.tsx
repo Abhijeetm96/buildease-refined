@@ -2,7 +2,7 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Wrench, Paintbrush, House, Droplets, Zap } from "lucide-react";
+import { Wrench, Paintbrush, House, Droplets, Zap, Shield, TreePine } from "lucide-react";
 
 const Services = () => {
   const serviceCategories = [
@@ -20,7 +20,7 @@ const Services = () => {
     },
     {
       title: "Repair & Maintenance",
-      icon: <Wrench size={40} className="text-buildease-yellow" />,
+      icon: <Shield size={40} className="text-buildease-yellow" />,
       description: "Quick and reliable repair services for your home or business.",
       link: "/services/repair"
     },
@@ -41,6 +41,18 @@ const Services = () => {
       icon: <Zap size={40} className="text-buildease-yellow" />,
       description: "Safe and reliable electrical services by certified professionals.",
       link: "/services/electrical"
+    },
+    {
+      title: "Painting & Finishing",
+      icon: <Paintbrush size={40} className="text-buildease-yellow" />,
+      description: "Quality painting and finishing services for interior and exterior.",
+      link: "/services/painting"
+    },
+    {
+      title: "Landscaping",
+      icon: <TreePine size={40} className="text-buildease-yellow" />,
+      description: "Transform your outdoor spaces with professional landscaping services.",
+      link: "/services/landscaping"
     }
   ];
 
@@ -59,7 +71,7 @@ const Services = () => {
       {/* Services Grid */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {serviceCategories.map((service, index) => (
               <div key={index} className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                 <div className="flex justify-center mb-4">
@@ -85,7 +97,7 @@ const Services = () => {
           <p className="text-white/80 max-w-2xl mx-auto mb-8">
             Our team of professionals is ready to help bring your vision to life.
           </p>
-          <Button asChild className="btn-primary text-lg py-6 px-8">
+          <Button asChild className="btn-primary text-lg py-6 px-8 text-buildease-black">
             <Link to="/book-now">Book a Service Now</Link>
           </Button>
         </div>

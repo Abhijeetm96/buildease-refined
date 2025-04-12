@@ -12,6 +12,17 @@ import Login from "./pages/Login";
 import BookNow from "./pages/BookNow";
 import NotFound from "./pages/NotFound";
 
+// Service Pages
+import Construction from "./pages/services/Construction";
+import Renovation from "./pages/services/Renovation";
+import Repair from "./pages/services/Repair";
+import InteriorDesign from "./pages/services/InteriorDesign";
+import Plumbing from "./pages/services/Plumbing";
+import Electrical from "./pages/services/Electrical";
+import Painting from "./pages/services/Painting";
+import Landscaping from "./pages/services/Landscaping";
+import Maintenance from "./pages/services/Maintenance";
+
 // Create a client
 const queryClient = new QueryClient();
 
@@ -28,6 +39,18 @@ const App = () => (
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/book-now" element={<BookNow />} />
+        
+        {/* Service Routes */}
+        <Route path="/services/construction" element={<Construction />} />
+        <Route path="/services/renovation" element={<Renovation />} />
+        <Route path="/services/repair" element={<Repair />} />
+        <Route path="/services/interior-design" element={<InteriorDesign />} />
+        <Route path="/services/plumbing" element={<Plumbing />} />
+        <Route path="/services/electrical" element={<Electrical />} />
+        <Route path="/services/painting" element={<Painting />} />
+        <Route path="/services/landscaping" element={<Landscaping />} />
+        <Route path="/services/maintenance" element={<Maintenance />} />
+        
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
