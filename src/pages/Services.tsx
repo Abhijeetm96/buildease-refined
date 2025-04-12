@@ -2,13 +2,13 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Tool, Paintbrush, Wrench, House, Droplets, Zap } from "lucide-react";
+import { Wrench, Paintbrush, House, Droplets, Zap } from "lucide-react";
 
 const Services = () => {
   const serviceCategories = [
     {
       title: "General Construction",
-      icon: <Tool size={40} className="text-buildease-yellow" />,
+      icon: <Wrench size={40} className="text-buildease-yellow" />,
       description: "Professional construction services for residential and commercial projects.",
       link: "/services/construction"
     },

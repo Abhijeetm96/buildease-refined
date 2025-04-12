@@ -2,7 +2,7 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Search, Calendar, UserCheck, Tool } from "lucide-react";
+import { Search, Calendar, UserCheck, Wrench } from "lucide-react";
 
 const HowItWorks = () => {
   const steps = [
@@ -22,7 +22,7 @@ const HowItWorks = () => {
       description: "Select a convenient date and time that works for you using our simple booking system."
     },
     {
-      icon: <Tool size={48} className="text-buildease-yellow" />,
+      icon: <Wrench size={48} className="text-buildease-yellow" />,
       title: "4. Get the Job Done",
       description: "Your chosen professional will arrive on schedule and complete the work to your satisfaction."
     }
