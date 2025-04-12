@@ -16,7 +16,7 @@ const Repair = () => {
 
   return (
     <ServicePage
-      title="Repair & Maintenance"
+      title="Repair Services"
       description="Quick and reliable repair services for your home or business. Our skilled technicians can fix any issue, big or small, to keep your property in perfect condition."
       features={features}
       image="/placeholder.svg"

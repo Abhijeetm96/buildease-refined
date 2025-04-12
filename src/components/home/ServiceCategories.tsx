@@ -1,5 +1,5 @@
 
-import { Building, Wrench, Home, Zap, Droplet, Palette, Truck, Shield } from "lucide-react";
+import { Building, Wrench, Home, Zap, Droplet, Palette, TreePine, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface ServiceCategoryProps {
@@ -39,7 +39,7 @@ const ServiceCategories = () => {
       icon: <Home size={48} />,
       title: "Interior Design",
       description: "Create stunning interior spaces with professional designers.",
-      link: "/services/interior"
+      link: "/services/interior-design"
     },
     {
       icon: <Zap size={48} />,
@@ -60,7 +60,7 @@ const ServiceCategories = () => {
       link: "/services/painting"
     },
     {
-      icon: <Truck size={48} />,
+      icon: <TreePine size={48} />,
       title: "Landscaping",
       description: "Transform your outdoor spaces with professional landscaping services.",
       link: "/services/landscaping"

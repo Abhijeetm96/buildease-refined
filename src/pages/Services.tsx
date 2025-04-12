@@ -2,13 +2,13 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Wrench, Paintbrush, House, Droplets, Zap, Shield, TreePine } from "lucide-react";
+import { Building, Paintbrush, Wrench, House, Droplets, Zap, Shield, TreePine } from "lucide-react";
 
 const Services = () => {
   const serviceCategories = [
     {
       title: "General Construction",
-      icon: <Wrench size={40} className="text-buildease-yellow" />,
+      icon: <Building size={40} className="text-buildease-yellow" />,
       description: "Professional construction services for residential and commercial projects.",
       link: "/services/construction"
     },
@@ -19,8 +19,8 @@ const Services = () => {
       link: "/services/renovation"
     },
     {
-      title: "Repair & Maintenance",
-      icon: <Shield size={40} className="text-buildease-yellow" />,
+      title: "Repair Services",
+      icon: <Wrench size={40} className="text-buildease-yellow" />,
       description: "Quick and reliable repair services for your home or business.",
       link: "/services/repair"
     },
@@ -53,6 +53,12 @@ const Services = () => {
       icon: <TreePine size={40} className="text-buildease-yellow" />,
       description: "Transform your outdoor spaces with professional landscaping services.",
       link: "/services/landscaping"
+    },
+    {
+      title: "Maintenance Services",
+      icon: <Shield size={40} className="text-buildease-yellow" />,
+      description: "Regular maintenance to keep your property in top condition.",
+      link: "/services/maintenance"
     }
   ];
 

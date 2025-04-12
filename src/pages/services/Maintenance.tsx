@@ -11,13 +11,13 @@ const Maintenance = () => {
     { text: "Gutter cleaning and repair" },
     { text: "Property management services" },
     { text: "Small repairs and handyman services" },
-    { text: "Emergency maintenance response" }
+    { text: "Scheduled maintenance contracts" }
   ];
 
   return (
     <ServicePage
-      title="Maintenance & Repairs"
-      description="Regular maintenance and quick repairs to keep your property in top condition. Our comprehensive maintenance services help prevent costly problems and extend the life of your home."
+      title="Maintenance Services"
+      description="Regular maintenance to keep your property in top condition and prevent costly problems. Our comprehensive maintenance services help extend the life of your home systems and structures."
       features={features}
       image="/placeholder.svg"
       icon={<Shield size={48} className="text-buildease-black" />}

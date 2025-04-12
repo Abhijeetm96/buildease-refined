@@ -16,7 +16,7 @@ const Plumbing = () => {
 
   return (
     <ServicePage
-      title="Plumbing"
+      title="Plumbing Services"
       description="Professional plumbing services for any water or drainage need. Our certified plumbers provide reliable solutions for installations, repairs, and maintenance."
       features={features}
       image="/placeholder.svg"
