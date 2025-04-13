@@ -1,12 +1,19 @@
 
+import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Building, Paintbrush, Wrench, House, Droplets, Zap, Shield, TreePine } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import ProfessionalGrid from "@/components/services/ProfessionalGrid";
 
 const Services = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  
   const serviceCategories = [
     {
       title: "General Construction",
@@ -111,6 +118,13 @@ const Services = () => {
     }
   ];
 
+  const handleSubcategoryClick = (categoryTitle: string, subcategoryName: string) => {
+    setSelectedCategory(categoryTitle);
+    setSelectedSubcategory(subcategoryName);
+    // Scroll to professionals section
+    document.getElementById('professionals-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -123,52 +137,79 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-16 md:py-24">
+      {/* Service Categories Tabs */}
+      <section className="py-12 bg-buildease-lightgray">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {serviceCategories.map((service, index) => (
-              <div key={index} className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                <div className="flex justify-center mb-4">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-center">{service.title}</h3>
-                <p className="text-gray-600 text-center mb-4">{service.description}</p>
-                
-                {/* Subcategories Accordion */}
-                <Accordion type="single" collapsible className="mb-4">
-                  <AccordionItem value="subcategories" className="border-none">
-                    <AccordionTrigger className="py-2 text-sm font-medium text-buildease-black hover:no-underline">
-                      View Subcategories
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <ul className="space-y-1 mt-1">
-                        {service.subcategories.map((subcategory, subIdx) => (
-                          <li key={subIdx}>
-                            <Link 
-                              to={subcategory.link} 
-                              className="text-gray-600 hover:text-buildease-yellow flex items-center py-1 text-sm"
-                            >
-                              <ChevronRight size={14} className="mr-1" />
-                              {subcategory.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-                
-                <div className="text-center">
-                  <Button asChild variant="outline" className="transition-colors">
-                    <Link to={service.link}>Learn More</Link>
-                  </Button>
-                </div>
-              </div>
-            ))}
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-4">Browse by Category</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Select a service category to explore subcategories and find the perfect professional for your project.
+            </p>
           </div>
+          
+          <Tabs defaultValue={serviceCategories[0].title} className="w-full">
+            <TabsList className="w-full flex flex-wrap justify-center mb-8">
+              {serviceCategories.map((category) => (
+                <TabsTrigger 
+                  key={category.title} 
+                  value={category.title}
+                  onClick={() => setSelectedCategory(category.title)}
+                  className="px-4 py-2 m-1"
+                >
+                  <span className="flex items-center gap-2">
+                    {category.icon}
+                    <span className="hidden md:inline">{category.title}</span>
+                  </span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            
+            {serviceCategories.map((category) => (
+              <TabsContent key={category.title} value={category.title}>
+                <h3 className="text-xl font-semibold mb-6 text-center">{category.title} Subcategories</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {category.subcategories.map((subcategory) => (
+                    <Card 
+                      key={subcategory.name}
+                      className="hover:shadow-lg transition-shadow cursor-pointer"
+                      onClick={() => handleSubcategoryClick(category.title, subcategory.name)}
+                    >
+                      <CardContent className="p-6 flex flex-col items-center text-center">
+                        <div className="h-12 w-12 bg-buildease-yellow/20 rounded-full flex items-center justify-center mb-4">
+                          <ChevronRight size={24} className="text-buildease-yellow" />
+                        </div>
+                        <h4 className="font-medium mb-2">{subcategory.name}</h4>
+                        <Button asChild variant="link" className="p-0 h-auto text-buildease-yellow hover:text-buildease-yellow/80">
+                          <Link to={subcategory.link}>View Details</Link>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
         </div>
       </section>
+
+      {/* Professionals Grid Section - Shows when a subcategory is selected */}
+      {selectedSubcategory && (
+        <section id="professionals-section" className="py-16 scroll-mt-20">
+          <div className="container mx-auto px-6">
+            <div className="mb-10">
+              <h2 className="text-3xl font-bold mb-4 text-center">{selectedSubcategory} Professionals</h2>
+              <p className="text-gray-600 text-center max-w-2xl mx-auto">
+                Connect with our verified professionals specializing in {selectedSubcategory.toLowerCase()} projects.
+              </p>
+            </div>
+            
+            <ProfessionalGrid 
+              category={selectedCategory} 
+              subcategory={selectedSubcategory} 
+            />
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="bg-buildease-black text-white py-16">
