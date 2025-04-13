@@ -1,11 +1,15 @@
 
+import { useState } from "react";
 import ServicePage from "@/components/services/ServicePage";
 import { Building, Home, Store, HardHat, Wrench } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
+import ProfessionalGrid from "@/components/services/ProfessionalGrid";
 
 const Construction = () => {
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  
   const features = [
     { text: "Complete building construction for residential and commercial projects" },
     { text: "Foundation and structural work by certified professionals" },
@@ -76,6 +80,12 @@ const Construction = () => {
     }
   ];
 
+  const handleSubcategoryClick = (subcategoryName: string) => {
+    setSelectedSubcategory(subcategoryName);
+    // Scroll to professionals section
+    document.getElementById('professionals-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <ServicePage
@@ -86,7 +96,7 @@ const Construction = () => {
         icon={<Building size={48} className="text-buildease-black" />}
       />
       
-      {/* Subcategories Section */}
+      {/* Subcategories Grid Section */}
       <section className="py-16 bg-buildease-lightgray">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
@@ -96,60 +106,63 @@ const Construction = () => {
             </p>
           </div>
           
-          <Tabs defaultValue="residential" className="w-full">
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-transparent h-auto mb-8">
-              {subcategories.map((category) => (
-                <TabsTrigger 
-                  key={category.id}
-                  value={category.id}
-                  className="data-[state=active]:bg-buildease-yellow data-[state=active]:text-black py-3"
-                >
-                  {category.title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {subcategories.map((category) => (
-              <TabsContent key={category.id} value={category.id}>
-                <div className="bg-white rounded-xl p-8 shadow-md">
-                  <div className="flex flex-col md:flex-row items-start gap-8">
-                    <div className="md:w-1/3">
-                      <div className="flex flex-col items-center md:items-start">
-                        {category.icon}
-                        <h3 className="text-2xl font-bold mb-4">{category.title}</h3>
-                        <p className="text-gray-600 mb-6">{category.description}</p>
-                        <Button asChild className="bg-buildease-yellow text-buildease-black hover:bg-buildease-yellow/80">
-                          <Link to={`/services/construction/${category.id}`}>View Details</Link>
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="md:w-2/3">
-                      <h4 className="font-semibold mb-4 text-lg">Included Services:</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {category.services.map((service, index) => (
-                          <div 
-                            key={index}
-                            className="flex items-center p-3 bg-gray-50 rounded-lg"
-                          >
-                            <Building size={16} className="text-buildease-yellow mr-2" />
-                            <span>{service}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+              <Card 
+                key={category.id}
+                className="overflow-hidden hover:shadow-lg transition-all cursor-pointer"
+                onClick={() => handleSubcategoryClick(category.title)}
+              >
+                <div className="p-6 flex flex-col items-center text-center">
+                  <div className="bg-buildease-yellow/10 p-4 rounded-full mb-4">
+                    {category.icon}
                   </div>
+                  <h3 className="text-xl font-bold mb-2">{category.title}</h3>
+                  <p className="text-gray-600 mb-6 text-sm">{category.description}</p>
+                  <Button 
+                    variant="outline" 
+                    className="border-buildease-yellow text-buildease-black hover:bg-buildease-yellow/10"
+                  >
+                    View Professionals
+                  </Button>
                 </div>
-              </TabsContent>
+              </Card>
             ))}
-          </Tabs>
-          
-          <div className="mt-12 text-center">
-            <p className="mb-6">Not sure what construction service you need?</p>
-            <Button asChild variant="outline" className="mr-4">
-              <Link to="/contact">Contact Our Experts</Link>
+          </div>
+        </div>
+      </section>
+      
+      {/* Professionals Grid Section - Shows when a subcategory is selected */}
+      {selectedSubcategory && (
+        <section id="professionals-section" className="py-16 scroll-mt-20">
+          <div className="container mx-auto px-6">
+            <div className="mb-10">
+              <h2 className="text-3xl font-bold mb-4 text-center">{selectedSubcategory} Professionals</h2>
+              <p className="text-gray-600 text-center max-w-2xl mx-auto">
+                Connect with our verified professionals specializing in {selectedSubcategory.toLowerCase()} projects.
+              </p>
+            </div>
+            
+            <ProfessionalGrid 
+              category="General Construction" 
+              subcategory={selectedSubcategory}
+            />
+          </div>
+        </section>
+      )}
+      
+      <section className="py-16">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to Get Started?</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            Contact our team of construction professionals today.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Button asChild className="bg-buildease-yellow text-buildease-black hover:bg-buildease-yellow/80">
+              <Link to="/book-now">Book Now</Link>
             </Button>
-            <Button asChild>
-              <Link to="/book-now">Schedule a Consultation</Link>
+            <Button asChild variant="outline">
+              <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
         </div>

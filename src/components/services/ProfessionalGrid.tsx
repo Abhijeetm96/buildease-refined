@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 interface Professional {
   id: string;
@@ -33,7 +34,7 @@ const ProfessionalGrid = ({ category, subcategory }: ProfessionalGridProps) => {
     setIsLoading(true);
     
     // Simulate API call delay
-    setTimeout(() => {
+    const fetchTimeout = setTimeout(() => {
       const mockProfessionals: Professional[] = [
         {
           id: "1",
@@ -93,10 +94,15 @@ const ProfessionalGrid = ({ category, subcategory }: ProfessionalGridProps) => {
       
       setProfessionals(filteredProfessionals);
       setIsLoading(false);
+      
+      // Show toast notification when professionals are loaded
+      if (filteredProfessionals.length > 0) {
+        toast.success(`Found ${filteredProfessionals.length} professionals for ${subcategory}`);
+      }
     }, 1000);
 
     return () => {
-      // Cleanup if needed
+      clearTimeout(fetchTimeout);
     };
   }, [category, subcategory]);
 
